@@ -1,0 +1,157 @@
+:root {
+  --background: #ffffff;
+  /* --background: #0D1117; */
+  /* --text-color: #ffffff; */
+  --main-color: #219D97;
+  font-family: "Roboto";
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  margin: 1rem 0 1rem 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  line-height: 1.3;
+  gap: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 20vh;
+  background-color: var(--main-color);
+  gap: 2rem;
+  color: white;
+  width: 100vw;
+}
+
+nav .right-side {
+  height: 100%;
+  max-width: 60%;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+nav .right-side .logo {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-side .logo img {
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.colaborator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.imgs {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.colaborator .imgs a img {
+  width: 2rem;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  margin-left: -0.5rem;
+}
+
+.wrap-content {
+  display: flex;
+  justify-content: center;
+  width: 80vw;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.features ol {
+  padding-left: 1rem;
+}
+
+.features li {
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+th,
+td {
+  padding: 0.6rem;
+  text-align: left;
+  border: 1px solid gray;
+}
+
+th {
+  background: var(--main-color);
+  font-weight: bold;
+  color: white;
+}
+
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.step {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+}
+
+.step>img {
+  width: 60%;
+  object-fit: contain;
+}
+
+.step>.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 40%;
+}
+
+.step .description .counter {
+  background-color: var(--main-color);
+  display: inline-block;
+  border-radius: 1rem;
+  padding: 0.3rem;
+  text-align: center;
+  color: white;
+  width: 5rem;
+}
+
+.step .description h3 {
+  color: var(--main-color);
+}
+
+.rotate-step {
+  flex-direction: row-reverse;
+}
