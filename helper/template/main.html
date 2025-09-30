@@ -7,31 +7,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <title>Manual template</title>
+    <title>Manual {{ project_name }}</title>
   </head>
   <body>
     <nav class="header">
       <div class="right-side">
-        <a class="logo" href="https://github.com/JuanCamilo0509/Automatic_Zen_Garden">
-          <img src="https://png.pngtree.com/png-vector/20240716/ourmid/pngtree-robotic-arm-png-image_13130331.png" alt="Not found">
+        <a class="logo" href={{ project_url }}>
+          <img src={{ project_logo }} alt="Not found">
         </a>
         <div class="project-info">
           <div class="colaborator">
-            <h1>Project Name</h1>
+            <h1> {{ project_name }}</h1>
             <div class="imgs">
-              <a href="https://github.com/josedddd1234">
-                <img src="https://avatars.githubusercontent.com/u/70914088?v=4" alt="Not">
-              </a>
-              <a href="https://github.com/JuanCamilo0509">
-                <img src="https://avatars.githubusercontent.com/u/70924088?v=4" alt="Not">
-              </a>
+              {% for col in collaborators %}
+                <a href={{ col.url }}>
+                  <img src= {{ col.img_url}} alt="Not">
+                </a>
+              {% endfor %}
             </div>
           </div>
-          <p>Description of the project from the README file.</p>
+          <p>{{ project_description }}</p>
         </div>
       </div>
       <h1>
-        V.1.1
+        V.{{ project_version }}
       </h1>
     </nav>
     <div class="wrap-content">
@@ -40,10 +39,9 @@
           Features
         </h2>
         <ol>
-          <li>Lorem ipsum dolor sit amet.</li>
-          <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, beatae?</li>
-          <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse eos assumenda nulla tempore animi laudantium blanditiis quam. Aliquid eos id deleniti optio voluptatibus quibusdam repudiandae, cum aperiam provident quis. Sequi!</li>
-          <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla aliquam facere, nam voluptate quasi beatae?</li>
+          {% for req in requirements %}
+            <li>{{ req.description }}</li>
+          {% endfor %}
         </ol>
       </section>
       <section>
@@ -92,23 +90,26 @@
           </tr>
         </table>
       </section>
+
       <section>
         <h2>Assembly</h2>
         <div class="steps-container">
-          <div class="step">
-            <!-- <div class="step rotate-step">  -->
-            <img src="https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2FtcGxlfGVufDB8fDB8fHww" alt="Image not found in docs">
+          {% for step in steps %}
+          <div class="step {% if loop.index is even %}rotate-step{% endif %}">
+            <img src={{ step.image }} alt="Image not found in docs">
             <div class="description">
               <div class="counter">
-                <h4>i/n</h4>
+                <h4> {{ loop.index }}/ {{ n }}</h4>
               </div>
-              <h3>Step's Title</h3>
+              <h3>{{ step.title }}</h3>
               <br>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia odit illum consectetur, eveniet est sapiente dolorum ab exercitationem, fuga dolorem hic esse et aliquam distinctio magni sit expedita nihil ut?</p>
+              <p>{{ step.description }}</p>
             </div>
           </div>
+          {% endfor %}
         </div>
       </section>
+
     </div>
   </body>
 </html>
