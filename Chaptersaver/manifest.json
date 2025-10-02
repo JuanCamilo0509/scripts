@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "SaveThePage",
+  "version": "1.0",
+  "description": "Saves a page and modified the bookmark each time you go to the next page",
+  "icons": {
+    "48": "icons/SaveThePage.jpg"
+  },
+  "permissions": [
+    "tabs",
+    "bookmarks"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  }
+}
