@@ -1,7 +1,15 @@
 use git2::Repository;
+use reqwest::Client;
+use reqwest::header::USER_AGENT;
 use serde::Deserialize;
 use serde::Serialize;
 use tokio;
+
+#[derive(Serialize, Deserialize)]
+pub struct GithubInformation {
+    pub description: String,
+}
+
 #[derive(Serialize)]
 pub struct Collaborator {
     pub url: String,
@@ -10,10 +18,34 @@ pub struct Collaborator {
 pub struct ProjectInfo {
     pub name: String,
     pub url: String,
-    pub description: String,
     pub version: String,
-    pub collaborator: Vec<Collaborator>,
+    pub github_info: GithubInformation,
     pub img: String,
+}
+
+impl GithubInformation {
+    #[tokio::main]
+    pub async fn api_call(
+        owner: &str,
+        rep_name: &str,
+    ) -> Result<GithubInformation, Box<dyn std::error::Error>> {
+        let api_url = format!("https://api.github.com/repos/{}/{}", owner, rep_name);
+        let client = Client::new();
+        let response = client
+            .get(api_url)
+            .header(USER_AGENT, "repo")
+            .send()
+            .await?;
+        let data: GithubInformation = response.json().await?;
+        if data.description.is_empty() {
+            println!("Empty response")
+        }
+        Ok({
+            GithubInformation {
+                description: data.description.to_string(),
+            }
+        })
+    }
 }
 
 impl ProjectInfo {
@@ -24,8 +56,8 @@ impl ProjectInfo {
         let parts: Vec<&str> = clear_url.split("/").collect();
         let owner = parts.get(parts.len() - 2).unwrap_or(&"Unknown");
         let name = parts.last().unwrap_or(&"Unknown").to_string();
+        let github_info = GithubInformation::api_call(owner, &name).unwrap();
 
-        let api_url = format!("https://api.github.com/repos/{}/{}", owner, name);
         let version = repo
             .tag_names(None)
             .unwrap()
@@ -38,18 +70,8 @@ impl ProjectInfo {
         ProjectInfo {
             name: name,
             url: remote.url().unwrap_or("").to_string(),
-            description: "".to_string(),
             version: version,
-            collaborator: vec![
-                Collaborator {
-                    url: "https://github.com/josedddd1234".to_string(),
-                    img_url: "https://avatars.githubusercontent.com/u/70914088?v=4".to_string(),
-                },
-                Collaborator {
-                    url: "https://github.com/juancamilo0509".to_string(),
-                    img_url: "https://avatars.githubusercontent.com/u/70924088?v=4".to_string(),
-                },
-            ],
+            github_info: github_info,
             img: "../projectFilesSample/docs/assets/logo.png".to_string(),
         }
     }
