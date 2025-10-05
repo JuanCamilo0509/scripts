@@ -106,8 +106,9 @@
 			
 			.step {
 				width: 100%;
+        padding: 2rem;
 				display: flex;
-        justify-content: center;
+        justify-content: space-around;
 				gap: 2rem;
 			}
 			
@@ -140,6 +141,14 @@
 			.rotate-step {
 				flex-direction: row-reverse;
 			}
+      
+      @media print {
+        .step {
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+      }
+
 		</style>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
