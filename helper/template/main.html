@@ -15,6 +15,11 @@
 				margin: 0px;
 				box-sizing: border-box;
 			}
+      
+      a {
+        text-decoration: none;
+        color: var(--text-color);
+      }
 			
 			h1,
 			h2,
@@ -33,54 +38,29 @@
 			}
 			
 			nav {
-				display: flex;
-				justify-content: space-around;
-				align-items: center;
-				height: 20vh;
-				background-color: var(--main-color);
-				gap: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+				min-height: 20vh;
+        background-position: 50vw center;
+        background-repeat: no-repeat;
+        max-height: 10vh;
 				color: white;
 				width: 100vw;
+				padding: 0 10vw 0 10vw;
 			}
 			
-			nav .right-side {
-				height: 100%;
-				max-width: 60%;
-				display: flex;
-				justify-content: center;
-				gap: 1rem;
-				align-items: center;
-			}
-			
-			nav .right-side .logo {
-				height: 100%;
+			nav .logo {
+				max-height: 15vh;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-			}
-			
-			.right-side .logo img {
-				max-height: 80%;
-				object-fit: contain;
 			}
 			
 			.colaborator {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-			}
-			
-			.imgs {
-				display: flex;
-				flex-direction: row-reverse;
-			}
-			
-			.colaborator .imgs a img {
-				width: 2rem;
-				aspect-ratio: 1/1;
-				border-radius: 50%;
-				border: 1px solid #ddd;
-				margin-left: -0.5rem;
 			}
 			
 			.wrap-content {
@@ -127,11 +107,12 @@
 			.step {
 				width: 100%;
 				display: flex;
+        justify-content: center;
 				gap: 2rem;
 			}
 			
 			.step>img {
-				width: 60%;
+				width: 40%;
 				object-fit: contain;
 			}
 			
@@ -171,103 +152,95 @@
 		</title>
 	</head>
 	<body>
-		<nav class="header">
-			<div class="right-side">
-				<a class="logo" href={{ project_url }}>
-					<img src={{ project_logo }} alt=" 󰛖 ">
-				</a>
-				<div class="project-info">
-					<div class="colaborator">
-						<h1>
-							{{ project_name }}
-						</h1>
-						<div class="imgs">
-						</div>
-					</div>
-					<p>{{ project_description }}</p>
-				</div>
-			</div>
-			<h1>
-				V.{{ project_version }}
-			</h1>
-		</nav>
-		<div class="wrap-content">
-			<section class="features">
-				<h2>
-					Features
-				</h2>
-				<ol>
-					{% for req in requirements %}
-					<li>{{ req.description }}</li>
-					{% endfor %}
-				</ol>
-			</section>
-			<section>
-				<!-- Don't forget to add an empty element: &nbsp -->
-				<!-- <h2>Bom Table</h2> -->
-				<!-- <table> -->
-				<!-- 	<tr> -->
-				<!-- 		<th>Item No.</th> -->
-				<!-- 		<th>Part Number</th> -->
-				<!-- 		<th>Description</th> -->
-				<!-- 		<th>Quantity</th> -->
-				<!-- 		<th>Unit</th> -->
-				<!-- 		<th>Supplier</th> -->
-				<!-- 	</tr> -->
-				<!-- 	<tr> -->
-				<!-- 		<td>1</td> -->
-				<!-- 		<td>MB-001</td> -->
-				<!-- 		<td>Main Board</td> -->
-				<!-- 		<td>1</td> -->
-				<!-- 		<td>pcs</td> -->
-				<!-- 		<td>ElectroTech</td> -->
-				<!-- 	</tr> -->
-				<!-- 	<tr> -->
-				<!-- 		<td>2</td> -->
-				<!-- 		<td>SC-045</td> -->
-				<!-- 		<td>Screw M3x10</td> -->
-				<!-- 		<td>12</td> -->
-				<!-- 		<td>pcs</td> -->
-				<!-- 		<td>FastenCo</td> -->
-				<!-- 	</tr> -->
-				<!-- 	<tr> -->
-				<!-- 		<td>3</td> -->
-				<!-- 		<td>CN-210</td> -->
-				<!-- 		<td>Connector 8-pin</td> -->
-				<!-- 		<td>2</td> -->
-				<!-- 		<td>pcs</td> -->
-				<!-- 		<td>WireLink</td> -->
-				<!-- 	</tr> -->
-				<!-- 	<tr> -->
-				<!-- 		<td>4</td> -->
-				<!-- 		<td>CB-500</td> -->
-				<!-- 		<td>Power Cable</td> -->
-				<!-- 		<td>1</td> -->
-				<!-- 		<td>pcs</td> -->
-				<!-- 		<td>CablePro</td> -->
-				<!-- 	</tr> -->
-				<!-- </table> -->
-			</section>
-			<section>
-				<h2>Assembly</h2>
-				<div class="steps-container">
-					{% for step in steps %}
-					<div class="step {% if loop.index is even %}rotate-step{% endif %}">
-						<img src={{ step.image }} alt="Image not found in docs">
-						<div class="description">
-							<div class="counter">
-								<h4>
-									{{ loop.index }}/ {{ n }}
-								</h4>
-							</div>
-							<h3>{{ step.title }}</h3>
-							<br>
-							<p>{{ step.description }}</p>
-						</div>
-					</div>
-					{% endfor %}
-				</div>
-			</section>
-		</div>
-	</body>
+    <nav class="header" 
+      style="
+      background-color: var(--main-color);
+      background-image: url('{{ project_logo }}');
+      ">
+      <h1>
+        <a href={{project_url}}>{{ project_name }} V.{{project_version}}</a>
+      </h1>
+      <p>{{ project_description }}</p>
+    </nav>
+    <div class="wrap-content">
+      <section class="features">
+        <h2>
+          Features
+        </h2>
+        <ol>
+          {% for req in requirements %}
+          <li><b>{{ req.title }}:</b> <br>
+            {{ req.description }}
+          </li>
+          {% endfor %}
+        </ol>
+      </section>
+      <section>
+        <!-- Don't forget to add an empty element: &nbsp -->
+        <!-- <h2>Bom Table</h2> -->
+        <!-- <table> -->
+        <!-- 	<tr> -->
+        <!-- 		<th>Item No.</th> -->
+        <!-- 		<th>Part Number</th> -->
+        <!-- 		<th>Description</th> -->
+        <!-- 		<th>Quantity</th> -->
+        <!-- 		<th>Unit</th> -->
+        <!-- 		<th>Supplier</th> -->
+        <!-- 	</tr> -->
+        <!-- 	<tr> -->
+        <!-- 		<td>1</td> -->
+        <!-- 		<td>MB-001</td> -->
+        <!-- 		<td>Main Board</td> -->
+        <!-- 		<td>1</td> -->
+        <!-- 		<td>pcs</td> -->
+        <!-- 		<td>ElectroTech</td> -->
+        <!-- 	</tr> -->
+        <!-- 	<tr> -->
+        <!-- 		<td>2</td> -->
+        <!-- 		<td>SC-045</td> -->
+        <!-- 		<td>Screw M3x10</td> -->
+        <!-- 		<td>12</td> -->
+        <!-- 		<td>pcs</td> -->
+        <!-- 		<td>FastenCo</td> -->
+        <!-- 	</tr> -->
+        <!-- 	<tr> -->
+        <!-- 		<td>3</td> -->
+        <!-- 		<td>CN-210</td> -->
+        <!-- 		<td>Connector 8-pin</td> -->
+        <!-- 		<td>2</td> -->
+        <!-- 		<td>pcs</td> -->
+        <!-- 		<td>WireLink</td> -->
+        <!-- 	</tr> -->
+        <!-- 	<tr> -->
+        <!-- 		<td>4</td> -->
+        <!-- 		<td>CB-500</td> -->
+        <!-- 		<td>Power Cable</td> -->
+        <!-- 		<td>1</td> -->
+        <!-- 		<td>pcs</td> -->
+        <!-- 		<td>CablePro</td> -->
+        <!-- 	</tr> -->
+        <!-- </table> -->
+      </section>
+      <section>
+        <h2>Assembly</h2>
+        <div class="steps-container">
+          {% for step in steps %}
+          <div class="step {% if loop.index is even %}rotate-step{% endif %}">
+            <img src={{ step.image }} alt="Image not found in docs">
+            <div class="description">
+              <div class="counter">
+                <h4>
+                  {{ loop.index }}/ {{ n }}
+                </h4>
+              </div>
+              <h3>{{ step.title }}</h3>
+              <br>
+              <p>{{ step.description }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+  </body>
 </html>

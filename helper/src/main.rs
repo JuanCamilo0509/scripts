@@ -33,7 +33,6 @@ fn main() {
     context.insert("project_name", &project_info.name);
     context.insert("project_description", &project_info.github_info.description);
     context.insert("project_version", &project_info.version);
-    // context.insert("collaborators", &project_info.collaborator);
     context.insert("requirements", &requirements.requirements);
     context.insert("steps", &steps.steps);
     context.insert("n", &steps.steps.iter().count());

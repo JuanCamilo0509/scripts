@@ -1,3 +1,5 @@
+use std::fmt::format;
+
 use git2::Repository;
 use reqwest::Client;
 use reqwest::header::USER_AGENT;
@@ -72,7 +74,7 @@ impl ProjectInfo {
             url: remote.url().unwrap_or("").to_string(),
             version: version,
             github_info: github_info,
-            img: "../projectFilesSample/docs/assets/logo.png".to_string(),
+            img: format!("{}/{}", path, "docs/assets/logo.png"),
         }
     }
 }
